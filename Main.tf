@@ -1,17 +1,17 @@
 resource "aws_subnet" "private" {
-  vpc_id            = data.aws_vpc.selected.id
+  vpc_id            = vpc-0de2bfe0f5fc540e0
   cidr_block        = "10.0.1.0/24"
   availability_zone = "eu-west-1"
 }
 
 resource "aws_route_table" "private" {
-  vpc_id = data.aws_vpc.selected.id
+  vpc_id = vpc-0de2bfe0f5fc540e0
 }
 
 resource "aws_route" "private_nat_gateway" {
   route_table_id         = aws_route_table.private.id
   destination_cidr_block = "0.0.0.0/0"
-  nat_gateway_id         = data.aws_nat_gateway.selected.id
+  nat_gateway_id         = nat-07863fc48f5b99110
 }
 
 resource "aws_route_table_association" "private" {
@@ -37,7 +37,7 @@ resource "aws_security_group" "example" {
     to_port   = 65535
     protocol  = "tcp"
     cidr_blocks = [
-      "10.0.0.0/8"
+      "10.0.0.0/16"
     ]
   }
 
