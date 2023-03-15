@@ -1,3 +1,5 @@
+terraform{
+
 resource "aws_subnet" "private" {
   vpc_id            = vpc-0de2bfe0f5fc540e0
   cidr_block        = "10.0.1.0/16"
@@ -54,4 +56,5 @@ resource "aws_security_group" "example" {
       "0.0.0.0/0"
     ]
   }
+}
 }
