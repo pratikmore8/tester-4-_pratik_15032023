@@ -4,7 +4,6 @@ resource "aws_subnet" "private" {
   availability_zone = "us-west-2a"
 }
 
-# create the routing table and associate it with the private subnet
 resource "aws_route_table" "private" {
   vpc_id = data.aws_vpc.selected.id
 }
@@ -20,7 +19,6 @@ resource "aws_route_table_association" "private" {
   route_table_id = aws_route_table.private.id
 }
 
-# create the Lambda function
 resource "aws_lambda_function" "example" {
   filename         = "example.zip"
   function_name    = "example_function"
@@ -30,7 +28,7 @@ resource "aws_lambda_function" "example" {
   source_code_hash = filebase64sha256("example.zip")
 }
 
-# create the security group
+
 resource "aws_security_group" "example" {
   name_prefix = "example_security_group"
   vpc_id      = data.aws_vpc.selected.id
