@@ -1,6 +1,6 @@
 resource "aws_subnet" "private" {
   vpc_id            = vpc-0de2bfe0f5fc540e0
-  cidr_block        = "10.0.1.0/24"
+  cidr_block        = "10.0.1.0/16"
   availability_zone = "eu-west-1"
 }
 
@@ -19,6 +19,11 @@ resource "aws_route_table_association" "private" {
   route_table_id = aws_route_table.private.id
 }
 
+resource "terraform-aws-modules/s3-bucket/aws" {
+  S3_Bucket= "3.devops.candidate.exam"
+  Region= "eu-west-1"
+  Key= "<pratik>.<more>"
+}
 resource "aws_lambda_function" "example" {
   filename         = "example.zip"
   function_name    = "example_function"
@@ -30,7 +35,7 @@ resource "aws_lambda_function" "example" {
 
 resource "aws_security_group" "example" {
   name_prefix = "example_security_group"
-  vpc_id      = data.aws_vpc.selected.id
+  vpc_id      = vpc-0de2bfe0f5fc540e0
 
   ingress {
     from_port = 0
